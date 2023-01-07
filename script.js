@@ -90,17 +90,82 @@ var specialCharacters = [
   
   // Function to prompt user for password options
   function getPasswordOptions() {
+    var answerChar = prompt("Length of password (10 - 64 characters)", "10");
+    var convertedAnswer = parseInt(answerChar);
+    if(convertedAnswer <= 64 && convertedAnswer >= 10) {
+      console.log(answerChar);
+    } else {
+      console.log("Not enough characters or too many.")
+    }
+    
+    var answerLowercase = prompt("Do you want lowercase? Y or N", "Y");
+    if(answerLowercase === "Y") {
+      answerLowercase = true;
+    } else {
+      answerLowercase = false;
+    }
+    console.log("lowercase " + answerLowercase);
   
+    var answerUppercase = prompt("Do you want uppercase ? Y or N", "Y");
+    if(answerUppercase === "Y") {
+      answerUppercase = true;
+    } else {
+      answerUppercase = false;
+    }
+  
+    console.log("uppercase " + answerUppercase);
+  
+    var answerNumeric = prompt("Do you want numeric? Y or N", "Y");
+    if(answerNumeric === "Y") {
+      answerNumeric = true;
+    } else {
+      answerNumeric = false;
+    }
+  
+    console.log("numeric " + answerNumeric);
+    
+    var answerSpecial = prompt("How many special characters do you want in your password ?", "1");
+  
+    var answerObject = {
+      numberChar: convertedAnswer,
+      lowercase: answerLowercase,
+      uppercase: answerUppercase,
+      numeric: answerNumeric,
+      special: answerSpecial
+    }
+  
+    console.log(answerObject);
+    return answerObject;
   }
   
-  // Function for getting a random element from an array
-  function getRandom(arr) {
+  // Function for getting a random element from a string
+  function getRandom(str) {
+    var items = str.charAt(Math.floor(Math.random() * str.length));
   
+    return items;
   }
   
   // Function to generate password with user input
   function generatePassword() {
-  
+    var answers = getPasswordOptions();
+    var passwordObject = {
+      lowerString: lowerCasedCharacters.join(''),
+      upperString: upperCasedCharacters.join(''),
+      numericString: numericCharacters.join(''),
+      specialString: specialCharacters.join(''),
+    }
+    
+    console.log(passwordObject);
+    var password = '';
+      password += getRandom(passwordObject.lowerString);
+      password += getRandom(passwordObject.upperString);
+      password += getRandom(passwordObject.numericString);
+      password += getRandom(passwordObject.specialString);
+    for(i = password.length; i < answers.numberChar; i++) {
+          password += getRandom(Object.values(passwordObject).join(''));  // fill the rest of the password with random characters
+    }
+    console.log("new pass:" + password);
+    return password;
   }
   
   // Get references to the #generate element
