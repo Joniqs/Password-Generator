@@ -92,53 +92,63 @@ var upperCasedCharacters = [
 function getPasswordOptions() {
   var answerChar = prompt("Length of password (10 - 64 characters)", "10");
   var convertedAnswer = parseInt(answerChar);
+  var optionsType = 0;
     if(convertedAnswer <= 64 && convertedAnswer >= 10) {
       console.log(convertedAnswer);
     } else {
-      console.log("Not enough characters or too many.")
+      getPasswordOptions();
     }
   
-  var answerLowercase = prompt("Do you want lowercase? Y or N", "Y");
-  if(answerLowercase === "Y") {
-    answerLowercase = true;
-  } else {
+  var answerLowercase = confirm("Do you want lowercase?");
+  if(!answerLowercase) {
     answerLowercase = false;
+  } else {
+    answerLowercase = true;
+    optionsType++;
   }
   console.log("lowercase " + answerLowercase);
 
-  var answerUppercase = prompt("Do you want uppercase ? Y or N", "Y");
-  if(answerUppercase === "Y") {
-    answerUppercase = true;
-  } else {
+  var answerUppercase = confirm("Do you want uppercase ?");
+  if(!answerUppercase) {
     answerUppercase = false;
+  } else {
+    answerUppercase = true;
+    optionsType++;
   }
 
   console.log("uppercase " + answerUppercase);
 
-  var answerNumeric = prompt("Do you want numeric? Y or N", "Y");
-  if(answerNumeric === "Y") {
-    answerNumeric = true;
-  } else {
+  var answerNumeric = confirm("Do you want numeric?");
+  if(!answerNumeric) {
     answerNumeric = false;
+  } else {
+    answerNumeric = true;
+    optionsType++;
   }
 
   console.log("numeric " + answerNumeric);
   
-  var answerSpecial = prompt("Do you want special characters in your password ?", "Y");
-  if(answerSpecial === "Y") {
-    answerSpecial = true;
-  } else {
+  var answerSpecial = confirm("Do you want special characters in your password ?");
+  if(!answerSpecial) {
     answerSpecial = false;
+  } else {
+    answerSpecial = true;
+    optionsType++;
   }
 
-  var answerObject = {
-    numberChar: convertedAnswer,
-    lowercase: answerLowercase,
-    uppercase: answerUppercase,
-    numeric: answerNumeric,
-    special: answerSpecial
+  if(optionsType === 0) {
+    getPasswordOptions();
+    answerObject = {};
+  } else {
+    var answerObject = {
+      numberChar: convertedAnswer,
+      lowercase: answerLowercase,
+      uppercase: answerUppercase,
+      numeric: answerNumeric,
+      special: answerSpecial
+    }
   }
-
+  
   console.log(answerObject);
   return answerObject;
 }
