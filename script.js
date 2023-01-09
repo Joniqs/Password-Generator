@@ -90,16 +90,30 @@ var upperCasedCharacters = [
 
 // Function to prompt user for password options
 function getPasswordOptions() {
-  while(true) {
-  var answerChar = prompt("Length of password (10 - 64 characters)", "10");
-  var convertedAnswer = parseInt(answerChar);
-  var optionsType = 0;
-    if(convertedAnswer <= 64 && convertedAnswer >= 10) {
-      console.log(convertedAnswer);
-    } else {
-      continue;
-    }
+  //I'm using while loop to keep my user in prompts if they don't choose any option
   
+  // Prompt asking user for length of their password, using default value of 16 so their password is fairly secure
+  var answerChar = prompt("Length of password (10 - 64 characters)", "16");
+  // Prompts value are strings so i'm converting it to int before validating it's answer
+  var convertedAnswer = parseInt(answerChar);
+  // Creating variable that will store information if option was chosen or not.
+  var optionsType = 0;
+  // Checking if convertedAnswer is less or equal to 64 and if it's bigger or equal to 10
+  while (typeof answerChar !== "number" || answer < 10 || answer > 64){
+    // If number is valid - break out of while loop and continue
+    if (answerChar >= 10 && answerChar <= 64) {
+      convertedAnswer = answerChar;
+      break;
+    }
+    // if not valid, repeat prompt
+    else {
+      answerChar = prompt(
+        "Not enough characters or too many! \n Please choose a number between 10 and 64."
+      );
+    }
+  }
+  
+  while(true){
   var answerLowercase = confirm("Do you want lowercase?");
   if(!answerLowercase) {
     answerLowercase = false;
@@ -107,6 +121,8 @@ function getPasswordOptions() {
     answerLowercase = true;
     optionsType++;
   }
+  
+  checkBoolean(answerLowercase);
   console.log("lowercase " + answerLowercase);
 
   var answerUppercase = confirm("Do you want uppercase ?");
@@ -117,6 +133,7 @@ function getPasswordOptions() {
     optionsType++;
   }
 
+  checkBoolean(answerUppercase);
   console.log("uppercase " + answerUppercase);
 
   var answerNumeric = confirm("Do you want numeric?");
@@ -127,6 +144,7 @@ function getPasswordOptions() {
     optionsType++;
   }
 
+  checkBoolean(answerNumeric);
   console.log("numeric " + answerNumeric);
   
   var answerSpecial = confirm("Do you want special characters in your password ?");
@@ -137,8 +155,11 @@ function getPasswordOptions() {
     optionsType++;
   }
 
+  checkBoolean(answerSpecial);
+  console.log("special " + answerSpecial);
+
   if(optionsType === 0) {
-    alert("You need to select at least one character type!")
+    alert("You need to select at least one character type!");
     answerObject = {};
     continue;
   } else {
@@ -157,39 +178,74 @@ function getPasswordOptions() {
 }
 
 // Function for getting a random element from a string
-function getRandom(str) {
-  var items = str.charAt(Math.floor(Math.random() * str.length));
+function getRandom(string) {
+  var random = string.charAt(Math.floor(Math.random() * string.length));
 
-  return items;
+  return random;
 }
+
+// Function for checking if prompt is true or false, it will return a boolean and optionOpted
+function checkBoolean(Boolean) {
+  var optionOpted = 0;
+  var option =''
+  if(!Boolean) {
+    option = false;
+  } else {
+    option = true;
+    optionOpted++;
+  }
+  console.log("Check boolean function value: " + option, optionOpted);
+  return option, optionOpted;
+}
+
+
+
 
 // Function to generate password with user input
 function generatePassword() {
+  // Bringing user prompts values (object)
   var answers = getPasswordOptions();
+  // Declaring password object where i'll store characters based on user prompts
   var passwordObject = {};
+  // Declaring password string to store generated password
   var password = '';
-  
+  // Checking if lowercase option was chosen(true)
   if(answers.lowercase) {
+    // Adding lowercase characters to my password object by concatenating all of the elements
+    // in a lowerCasedCharacters array and returning a new string with those elements.
     passwordObject.lowerString = lowerCasedCharacters.join('');
+    // Adding a random lowercased character
     password += getRandom(passwordObject.lowerString);
   }
+  // Checking if uppercase option was chosen(true)
   if (answers.uppercase) {
+    // Adding uppercase characters to my password object by concatenating all of the elements
+    // in a upperCasedCharacters array and returning a new string with those elements.
     passwordObject.upperString = upperCasedCharacters.join('');
+    // Adding a random uppercased character
     password += getRandom(passwordObject.upperString);
   } 
+  // Checking if numeric option was chosen(true)
   if (answers.numeric) {
+    // Adding numeric characters to my password object by concatenating all of the elements
+    // in a numericCharacters array and returning a new string with those elements.
     passwordObject.numericString = numericCharacters.join();
+    // Adding a random uppercased character
     password += getRandom(passwordObject.numericString);
   } 
+  // Checking if numeric option was chosen(true)
   if(answers.special) {
+    // Adding special characters to my password object by concatenating all of the elements
+    // in a specialCharacters array and returning a new string with those elements.
     passwordObject.specialString = specialCharacters.join('');
     password += getRandom(passwordObject.specialString);
   }
-  console.log(passwordObject); 
+  // Filling the rest of the password based on how many characters are already stored is password variable
   for(i = password.length; i < answers.numberChar; i++) {
-        password += getRandom(Object.values(passwordObject).join(''));  // fill the rest of the password with random characters
+        // Fill the rest of the password with random characters that are stored in passwordObject dependent on user choices
+        password += getRandom(Object.values(passwordObject).join(''));  
   }
-  console.log("new pass:" + password);
+  // Returning new password
   return password;
 }
 
