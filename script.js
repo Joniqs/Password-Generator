@@ -110,31 +110,32 @@ function getPasswordOptions() {
       );
     }
   }
-  
+  // Checking if any of the answers are true and looping until user choose at least 1 option
   while(true){
   var answerLowercase = confirm("Do you want lowercase?");
+  // Checking if true, if yes then increment my optionsType once, so I know it was chosen
   if(checkBoolean(answerLowercase)) {
     optionsType++;
   }
-
+  // Checking if true, if yes then increment my optionsType once, so I know it was chosen
   var answerUppercase = confirm("Do you want uppercase ?");
   if(checkBoolean(answerUppercase)) {
     optionsType++;
   }
-
+  // Checking if true, if yes then increment my optionsType once, so I know it was chosen
   var answerNumeric = confirm("Do you want numeric?");
   if(checkBoolean(answerNumeric)){
     optionsType++;
   }
-  
+  // Checking if true, if yes then increment my optionsType once, so I know it was chosen
   var answerSpecial = confirm("Do you want special characters in your password ?");
   if(checkBoolean(answerSpecial)) {
     optionsType++;
   }
-
+  // Checking if any option was choosen then set my object to values provided by user,
+  // if none then it will alert user that he have to choose at least one type
   if(optionsType === 0) {
     alert("You need to select at least one character type!");
-    answerObject = {};
     continue;
   } else {
     var answerObject = {
@@ -145,7 +146,6 @@ function getPasswordOptions() {
       special: answerSpecial
     }
   }
-  
   return answerObject;
   }
 }
@@ -176,7 +176,7 @@ function joinArray(array) {
 function generatePassword() {
   // Bringing user prompts values (object)
   var answers = getPasswordOptions();
-  // Declaring password object where i'll store characters based on user prompts
+  // Declaring password object where I'll store characters based on user prompts
   var passwordObject = {};
   // Declaring password string to store generated password
   var password = '';
@@ -217,7 +217,7 @@ function generatePassword() {
         // Fill the rest of the password with random characters that are stored in passwordObject dependent on user choices
         password += getRandom(joinedCharacters);  
   }
-  // Returning new password
+  // Returning new generated password
   return password;
 }
 
