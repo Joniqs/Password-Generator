@@ -25,13 +25,6 @@ Install Password Generator with git clone
 
 Press 'Generate Password' in order to generate new password. Copy your result and use it freely.
 
-
-# Password Generator
-
-I created this project so I can easily create strong passwords based on user input.
-
-
-
 ## Credits
 
 Jonatan Kwiatkowski
