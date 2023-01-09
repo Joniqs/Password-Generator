@@ -90,13 +90,14 @@ var upperCasedCharacters = [
 
 // Function to prompt user for password options
 function getPasswordOptions() {
+  while(true) {
   var answerChar = prompt("Length of password (10 - 64 characters)", "10");
   var convertedAnswer = parseInt(answerChar);
   var optionsType = 0;
     if(convertedAnswer <= 64 && convertedAnswer >= 10) {
       console.log(convertedAnswer);
     } else {
-      getPasswordOptions();
+      continue;
     }
   
   var answerLowercase = confirm("Do you want lowercase?");
@@ -137,8 +138,9 @@ function getPasswordOptions() {
   }
 
   if(optionsType === 0) {
-    getPasswordOptions();
+    alert("You need to select at least one character type!")
     answerObject = {};
+    continue;
   } else {
     var answerObject = {
       numberChar: convertedAnswer,
@@ -151,6 +153,7 @@ function getPasswordOptions() {
   
   console.log(answerObject);
   return answerObject;
+  }
 }
 
 // Function for getting a random element from a string
