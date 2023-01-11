@@ -7,7 +7,7 @@ I created this project so I can easily create strong passwords based on user inp
 
 ## Demo
 
-![Alt text](/Password-Generator.png)
+![Alt text](/assets/images/Password-Generator.png)
 
 https://joniqs.github.io/Password-Generator/
 
