@@ -112,18 +112,18 @@ function getPasswordOptions() {
   }
   // Checking if any of the answers are true and looping until user choose at least 1 option
   while(true){
-  var answerLowercase = confirm("Do you want lowercase?");
+  var answerLowercase = confirm("Do you want lowercase characters in your password?");
   // Checking if true, if yes then increment my optionsType once, so I know it was chosen
   if(checkBoolean(answerLowercase)) {
     optionsType++;
   }
   // Checking if true, if yes then increment my optionsType once, so I know it was chosen
-  var answerUppercase = confirm("Do you want uppercase ?");
+  var answerUppercase = confirm("Do you want uppercase characters in your password?");
   if(checkBoolean(answerUppercase)) {
     optionsType++;
   }
   // Checking if true, if yes then increment my optionsType once, so I know it was chosen
-  var answerNumeric = confirm("Do you want numeric?");
+  var answerNumeric = confirm("Do you want numeric characters in your password?");
   if(checkBoolean(answerNumeric)){
     optionsType++;
   }
@@ -211,6 +211,7 @@ function generatePassword() {
     passwordObject.specialString = joinArray(specialCharacters);
     password += getRandom(passwordObject.specialString);
   }
+  //All elements from from my Password Object joined together
   var joinedCharacters = joinArray(Object.values(passwordObject));
   // Filling the rest of the password based on how many characters are already stored in password variable
   for(i = password.length; i < answers.numberChar; i++) {
